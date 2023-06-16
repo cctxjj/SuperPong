@@ -34,9 +34,9 @@ public class GameFrame extends JFrame implements KeyListener {
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.addKeyListener(this);
 
-         timer = new Timer(1, e -> {
+         timer = new Timer(2, e -> {
             moveBall();
-            paint(this.getGraphics());
+            this.repaint();
         });
         timer.start();
 
@@ -80,13 +80,14 @@ public class GameFrame extends JFrame implements KeyListener {
             timer.stop();
             return;
         }
-        Graphics2D graphics2D = (Graphics2D) g;
-        graphics2D.setColor(Color.black);
-        graphics2D.fillRect(0, 0, 800, 800);
-        drawPanel(Color.red, graphics2D, x_1, y_1);
-        drawPanel(Color.blue, graphics2D, x_2, y_2);
+        Image image = createImage(800, 800);
+        Graphics2D graphics2D = (Graphics2D) image.getGraphics();
+        graphics2D.setColor(Color.BLACK);
+        graphics2D.fillRect(0, 0, 900, 900);
+        drawPanel(Color.RED, graphics2D, x_1, y_1);
+        drawPanel(Color.BLUE, graphics2D, x_2, y_2);
         drawBall(graphics2D, x_ball, y_ball);
-
+        g.drawImage(image, 0, 0, null);
     }
 
     public void drawPanel(Color color, Graphics2D graphics2D, int x, int y) {
@@ -101,13 +102,13 @@ public class GameFrame extends JFrame implements KeyListener {
         graphics2D.setColor(Color.red);
         graphics2D.setFont(new Font("Arial", Font.BOLD, 20));
         graphics2D.drawString("Game Over!", 350, 400);
-        graphics2D.setColor(Color.green);
+        graphics2D.setColor(Color.GREEN);
         graphics2D.setFont(new Font("Arial", Font.PLAIN, 30));
         graphics2D.drawString("Sieger: " + winner, 400, 450);
     }
 
     public void drawBall(Graphics2D graphics2D, int x, int y) {
-        graphics2D.setColor(Color.white);
+        graphics2D.setColor(Color.WHITE);
         graphics2D.fillOval(x, y, 40, 40);
     }
 
